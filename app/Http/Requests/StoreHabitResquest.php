@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class StoreHabitResquest extends FormRequest
 {
@@ -23,7 +24,12 @@ class StoreHabitResquest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required'
+            'title' => ['required', 'max:255', 'min:2', 'string'],
         ];
+    }
+
+    //Liberaçao de CSRF
+    protected function passedValidation() : void{
+        $this->merge(['uuid' => Str::uuid()]);
     }
 }

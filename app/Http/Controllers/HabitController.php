@@ -27,13 +27,14 @@ class HabitController extends Controller
     }
 
     //Utilizando formRequest
+    //Rota de criaçao de habitos
     public function store(StoreHabitResquest $storeHabitResquest  ){
         
         //* Coletando dados validados pelo request
-       $data = $storeHabitResquest->validated();
-
+       $data = $storeHabitResquest->only('title', 'uuid');
+        
         //Adicionando o conteudo com os dados validandos em nosso banco
-        $habit = Habit::created($data);
+        $habit = Habit::create(array_merge($data, ['user_id' => 1]));
 
         //Retornando nosso Resource
         return HabitResource::make($habit);
