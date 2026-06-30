@@ -19,6 +19,12 @@ class HabitController extends Controller
 
     }
 
+    //Rota para coleta de um unico registro
+    public function show(Habit $habit){
+
+         return HabitResource::make($habit);
+
+    }
 
     //Utilizando formRequest
     public function store(StoreHabitResquest $storeHabitResquest  ){
